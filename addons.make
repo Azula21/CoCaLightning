@@ -1,3 +1,3 @@
 ofxGui
 ofxKinectV2
-ofxLightning-master
+ofxLightning
