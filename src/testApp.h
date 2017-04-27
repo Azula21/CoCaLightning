@@ -26,10 +26,14 @@ class testApp : public ofBaseApp{
 		float boltX;
     
     
-    KinectHand kHand;
-    ofVec2f handLocation;
+        KinectHand kHand;
+        ofVec2f handLocation;
+        bool kinectDebug = false;
     
-    bool kinectDebug = false;
+        vector <ofVec2f> rainPositions;
+        vector <float> rainVelocity;
+        int rainParticles = 1000;
+    
 };
 
 #endif

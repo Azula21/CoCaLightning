@@ -23,7 +23,7 @@ void LightningBolt::setup(float aFromX, float aFromY, float aToX, float aToY, in
 	
 	deviation = aMaxOffset;
 	branchingProbability = aBranchingProbability;
-	branchAngleMultiplier = 1.6;//1.6;
+	branchAngleMultiplier = 1.9;//1.6;
 	branchScale = 0.8;
 	branchIntensityFactor = 0.7;//0.5;
 }
@@ -61,7 +61,7 @@ void LightningBolt::parse() {
 			segments.push_back(a);
 			segments.push_back(b);
 			
-			if (ofRandom(0.0, 1.0) < branchingProbability)
+			if (ofRandom(0.0, 2.0) < branchingProbability)
 			{
 				// add branch:
 				float branchAngle = a.getRadians() * branchAngleMultiplier;
@@ -73,7 +73,7 @@ void LightningBolt::parse() {
 		}
 		
 		// halve max offset amplitude
-		currentDeviation *= 0.5;
+		currentDeviation *= ofRandom(0.4, 0.6);
 	}
 }
 
@@ -81,26 +81,33 @@ void LightningBolt::parse() {
 
 void LightningBolt::draw() {
     ofEnableAlphaBlending();
+    glLineWidth(1.815);
 	glBegin(GL_LINES);
-    //glLineWidth(10);
-    
-    
 	unsigned long max = segments.size();
-	for (int i = 0; i < max; i++)
-	{
-        ofSetColor(0, ofRandom(50, 255), ofRandom(100,255));
-        //ofSetLineWidth(100);
+    int r = 255;
+    int b = 230;
+    int g = 0;
+    
+//    ofSetColor(ofRandom(75,200),ofRandom(75,200), 255);
+	for (int i = 0; i < max; i++){
+        r -= 1000/segments.size();
+        g += 500/segments.size();
+        ofSetColor(r, g, b);
         glVertex2f(segments[i].start.x, segments[i].start.y);
         glVertex2f(segments[i].end.x, segments[i].end.y);
-        glLineWidth(0.7);
-		//float brightness = segments[i].intensity * 255;
-        //ofSetColor(255, 0, 255, 255);
-       // ofNoFill();
-        //ofDrawLine(segments[i].start.x, segments[i].start.y, segments[i].end.x, segments[i].end.y);
-        //ofSetLineWidth(5);
-       // ofDrawLine(segments[i].start.x, segments[i].start.y, 4, segments[i].end.x, segments[i].end.y, 4);
 	}
-	
 	glEnd();
+    
+    
+//    glLineWidth(5);
+//    glBegin(GL_LINES);
+//    ofSetColor(0,100,100,30);
+//    for (int i = 0; i < max; i++){
+//        
+//        glVertex2f(segments[i].start.x, segments[i].start.y);
+//        glVertex2f(segments[i].end.x, segments[i].end.y);
+//    }
+//    glEnd();
+    
 }
 
